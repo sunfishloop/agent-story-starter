@@ -1,0 +1,5 @@
+{"agent":{"name":"Example Build Agent","runtime":"Codex","model":"GPT"},"goal":"Find and repair the failing CI check"}
+{"event":"observation","message":"The test suite failed after a configuration change."}
+{"event":"decision","message":"Compare the failing environment with the last green run."}
+{"event":"action","message":"Restore the missing configuration and rerun the focused tests."}
+{"event":"result","message":"The focused tests and full CI suite passed."}

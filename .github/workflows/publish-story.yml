@@ -1,0 +1,29 @@
+name: Publish Agent Story
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_file:
+        description: Run log to publish
+        required: true
+        default: agent-run.jsonl
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publish Agent Story
+        id: story
+        uses: sunfishloop/publish-agent-story@v1
+        with:
+          run-file: ${{ inputs.run_file }}
+          visibility: unlisted
+
+      - name: Add Story link
+        run: |
+          echo "Story: ${{ steps.story.outputs.story-url }}" >> "$GITHUB_STEP_SUMMARY"
