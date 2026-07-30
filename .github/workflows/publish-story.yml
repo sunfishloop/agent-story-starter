@@ -32,7 +32,7 @@ jobs:
 
       - name: Publish Agent Story
         id: story
-        uses: sunfishloop/publish-agent-story@v1
+        uses: sunfishloop/publish-agent-story@v1.2.1
         with:
           run-file: ${{ inputs.run_file }}
           title: ${{ inputs.title }}
