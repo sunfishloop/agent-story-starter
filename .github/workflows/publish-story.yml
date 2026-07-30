@@ -7,6 +7,19 @@ on:
         description: Run log to publish
         required: true
         default: agent-run.jsonl
+      title:
+        description: Optional Story title
+        required: false
+        default: My first Agent Story
+      visibility:
+        description: Who can discover this Story?
+        required: true
+        default: unlisted
+        type: choice
+        options:
+          - unlisted
+          - public
+          - private
 
 jobs:
   publish:
@@ -22,8 +35,10 @@ jobs:
         uses: sunfishloop/publish-agent-story@v1
         with:
           run-file: ${{ inputs.run_file }}
-          visibility: unlisted
+          title: ${{ inputs.title }}
+          visibility: ${{ inputs.visibility }}
 
-      - name: Add Story link
+      - name: Confirm the published Story
         run: |
-          echo "Story: ${{ steps.story.outputs.story-url }}" >> "$GITHUB_STEP_SUMMARY"
+          test -n "${{ steps.story.outputs.story-id }}"
+          echo "Published Story: ${{ steps.story.outputs.story-url }}"
